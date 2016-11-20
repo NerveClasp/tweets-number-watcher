@@ -4,6 +4,7 @@ const followers = require('./followers.json');
 const moment = require('moment');
 
 let curTweets, aim = 0;
+let informed;
 let config = require('./config.json');
 let tweet, user = "";
 
@@ -15,22 +16,23 @@ var client = new twitter({
 });
 
 setInterval(function () {
-  for (var i = 0; i < followers.f.length; i++) {
-    user = followers.f[i];
+  // for (var i = 0; i < followers.f.length; i++) {
+    user = followers.f[0];
     client.get('search/tweets', {q: "#watch"+user}, function(error, tweets, response) {
       curTweets = tweets.statuses[0].user.statuses_count;
+      // curTweets = 8883;
       aim = curTweets + 5;
-      aim.toString();
+      aim = aim.toString();
       // console.log(tweets.statuses[0].user.statuses_count);
     });
-    if(aim.endsWith('00') || aim.endsWith('000') || aim.endsWith('0000') || aim.endsWith('00000')){
-      tweetIt(user, 'curTweets')
+    // if(aim.endsWith('00') || aim.endsWith('000') || aim.endsWith('0000') || aim.endsWith('00000')){
+    //   tweetIt(user, curTweets);
+    // }
+    if(aim == '8888'){
+      tweetIt(user, curTweets, Boolean(aim == informed));
+      informed = aim;
     }
-    let first = aim[0];
-    for(i=0; i<aim.length, i++){
-      
-    }
-  }
+  // }
   // if(){
   //   if(tweets.t.length == countMe && bufferCount != bufferTweets.length){
   //     tweet = bufferTweets[bufferCount];
@@ -55,12 +57,18 @@ setInterval(function () {
 // }, 1000);
 }, 15000);
 
-function tweetIt(user, number) {
-  client.post('statuses/update', {status: "Hey, @"+user+" \nYou have tweeted "+number+" already!"},  function(error, tweet, response) {
-    if(error){
-      /* lol nothing */
-    }else{
-      console.log(moment().format("HH:mm:ss_")+"tweeted "+user+" tweeted "+number);
-    }
-  });
+function tweetIt(user, number, informed) {
+  if (!informed) {
+    client.post('statuses/update', {status: "Hey, @"+user+" \nYou have tweeted "+number+" already!"},  function(error, tweet, response) {
+      if(error){
+        /* lol nothing */
+      }else{
+        console.log(moment().format("HH:mm:ss_")+"tweeted "+user+" tweeted "+number);
+      }
+    });
+  }else{
+    console.log(user+" has tweeted "+number+" times.\nInformed already or milestone was not reached yet.");
+  }
+  //
+  // console.log(user+" tweeted "+number+" tweets!");
 }
