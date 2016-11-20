@@ -1,0 +1,24 @@
+{
+  "name": "tweets-number-watcher",
+  "version": "1.0.0",
+  "description": "Watches the number of tweets",
+  "main": "index.js",
+  "dependencies": {
+    "moment": "^2.16.0",
+    "twitter": "^1.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NerveClasp/tweets-number-watcher.git"
+  },
+  "author": "Roman Gorokhov, Kyiv (Ukraine)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NerveClasp/tweets-number-watcher/issues"
+  },
+  "homepage": "https://github.com/NerveClasp/tweets-number-watcher#readme"
+}
