@@ -19,10 +19,20 @@ setInterval(function () {
   // for (var i = 0; i < followers.f.length; i++) {
     user = followers.f[0];
     client.get('search/tweets', {q: "#watch"+user}, function(error, tweets, response) {
-      curTweets = tweets.statuses[0].user.statuses_count;
-      // curTweets = 8883;
-      aim = curTweets + 5;
-      aim = aim.toString();
+      if (error) {
+        console.log(error);
+      } else {
+        curTweets = tweets.statuses[0].user.statuses_count;
+        // curTweets = 8883;
+        if (curTweets != NaN) {
+          aim = curTweets + 5;
+          aim = aim.toString();
+        }else{
+          aim = "error";
+        }
+
+      }
+
       // console.log(tweets.statuses[0].user.statuses_count);
     });
     // if(aim.endsWith('00') || aim.endsWith('000') || aim.endsWith('0000') || aim.endsWith('00000')){
